@@ -10,7 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Greetings
+        shell: bash
         run: |
-          echo "Hello Demo"
-          echo "This is a test run"
+          echo "-----------------------------"
+          echo "HELLO DEMO WORKFLOW IS RUNNING"
+          echo "Current directory:"
+          pwd
+          echo "Files:"
+          ls -al
+          echo "-----------------------------"

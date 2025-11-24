@@ -1,4 +1,4 @@
 from datetime import datetime
 
 todaysDate = datetime.now()
-print(f"Today is {todaysDates}")
+print(f"Today is {todaysDate}")

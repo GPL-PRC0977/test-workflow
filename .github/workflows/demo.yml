@@ -13,13 +13,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Greetings
-        shell: bash
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
         run: |
-          echo "-----------------------------"
-          echo "HELLO DEMO WORKFLOW IS RUNNING"
-          echo "Current directory:"
-          pwd
-          echo "Files:"
-          ls -al
-          echo "-----------------------------"
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install flake8 black pytest
+
+      - name: Run flake8 (lint)
+        run: flake8 .
+
+      - name: Run black (format check)
+        run: black --check .
+
+      - name: Run pytest (unit tests)
+        run: |
+          if [ -d tests ]; then pytest -q; else echo "No tests/ folder found. Skipping pytest."; fi
